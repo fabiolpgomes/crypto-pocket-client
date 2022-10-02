@@ -1,3 +1,55 @@
+# Crypto Pocket Client #1
+ 
+
+Front-end for Crypto Pocket app (**mobile** and **web**)!
+
+# About the project
+
+The Crypto Pocket app was created to facilitate end-user cryptocurrency management. With a simple and straightforward 'interface', the user will be able to know the value of his asset position in real time. The application has the management of all the main currencies of the market that you make contributions, being possible to follow the performance of your investments.
+
+This project has been created in the third module at Ironhack São Paulo - Web Development Bootcamp.
+
+
+# Features - MERN stack
+
+- Create and Update User
+- Create and Update more than one Wallet per User 
+- Create and Update Wallet / Crypto Currencies
+- Real Time Validation
+- Check
+	- Amount invested x Current Value
+	- Profit Margin per Crypto Currencies 
+	- Purchase Price
+	 
+# Developers GitHub
+
+- [Fabio Gomes](https://github.com/fabiolpgomes)
+- [Bruno Apostolo](https://github.com/brunoapostolo)
+
+# Crypto Pocket SERVER
+
+Back-end project for inventory control app (**mobile** and **web**)!
+
+[Click here](https://github.com/fabiolpgomes/crypto-pocket-server)
+
+# Presentation
+
+[Click here](https://www.canva.com/design/DAE6l1qSFZI/xZhufOFHCylg5A8tYSolLw/view?utm_content=DAE6l1qSFZI&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton)
+
+## Install
+To run the application on your localhost, clone the repo and then execute the commands below:
+
+- <code>$ git clone https://github.com/fabiolpgomes/crypto-pocket-client</code>
+- <code>$ cd kols-client</code>
+- <code>$ npm install</code>
+- <code>$ npm run dev </code>
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
