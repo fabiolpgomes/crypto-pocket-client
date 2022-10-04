@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../api/api";
 import profilePlaceholder from "../../assets/profile-placeholder.jpg";
-import  { SignUpPage }  from "../../pages/SignUpPage";
+import { SignUpPage } from "../../pages/SignUpPage";
 
 export function SignUpForm() {
   const startRef = useRef();
@@ -151,4 +151,3 @@ export function SignUpForm() {
     </>
   );
 }
-
