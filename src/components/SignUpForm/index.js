@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../api/api";
 import profilePlaceholder from "../../assets/profile-placeholder.jpg";
-import  { SignUpPage }  from "../../pages/SignUpPage";
+import { SignUpPage } from "../../pages/SignUpPage";
 
 export function SignUpForm() {
   const startRef = useRef();
@@ -21,25 +21,9 @@ export function SignUpForm() {
     email: "",
     password: "",
   });
-  const [profilePicture, setProfilePicture] = useState("");
 
   function handleChange(e) {
     setUserForm({ ...userForm, [e.target.name]: e.target.value });
-  }
-
-  function handleImage(e) {
-    setProfilePicture(e.target.files[0]);
-  }
-
-  async function handleUpload() {
-    try {
-      const uploadData = new FormData();
-      uploadData.append("picture", profilePicture);
-      const response = await api.post("/upload-image", uploadData);
-      return response.data.url;
-    } catch (error) {
-      console.log(error);
-    }
   }
 
   async function handleSubmit(e) {
@@ -47,8 +31,7 @@ export function SignUpForm() {
     createButton.current.disabled = true;
 
     try {
-      const imgURL = await handleUpload();
-      await api.post("/users/sign-up", { ...userForm, picture: imgURL });
+      await api.post("/users/sign-up", { ...userForm });
       toast.success("Account created.");
       navigate("/confirm-email");
     } catch (error) {
@@ -57,16 +40,6 @@ export function SignUpForm() {
       toast.error("Unable to create account, check information.");
     }
   }
-
-  useEffect(() => {
-    if (!profilePicture) {
-      setPreview(profilePlaceholder);
-      return;
-    }
-    const objectURL = URL.createObjectURL(profilePicture);
-    setPreview(objectURL);
-    return () => URL.revokeObjectURL(objectURL);
-  }, [profilePicture]);
 
   function showPassword() {
     if (passwordInput.current.type === "password") {
@@ -79,22 +52,6 @@ export function SignUpForm() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <div className="mb-2">
-          <img src={preview} alt="" className="profile-img" />
-        </div>
-        <div className="mb-2">
-          <label className="form-label fw-bold" htmlFor="profilePicture">
-            Picture
-          </label>
-          <input
-            className="form-control"
-            id="profilePicture"
-            type="file"
-            name="profilePicture"
-            onChange={handleImage}
-          />
-        </div>
-
         <div className="mb-2">
           <label className="form-label fw-bold" htmlFor="name">
             Name
@@ -151,4 +108,3 @@ export function SignUpForm() {
     </>
   );
 }
-
