@@ -1,21 +1,25 @@
-function ErrorPage() {
-  return (
-    <main class="h-screen w-full flex flex-col justify-center items-center bg-[#1A2238]">
-      <h1 class="text-9xl font-extrabold text-white tracking-widest">404</h1>
-      <div class="bg-[#FF6A3D] px-2 text-sm rounded rotate-12 absolute">
-        Page Not Found
-      </div>
-      <button class="mt-5">
-        <a class="relative inline-block text-sm font-medium text-[#FF6A3D] group active:text-orange-500 focus:outline-none focus:ring">
-          <span class="absolute inset-0 transition-transform translate-x-0.5 translate-y-0.5 bg-[#FF6A3D] group-hover:translate-y-0 group-hover:translate-x-0"></span>
+import { Link } from "react-router-dom";
 
-          <span class="relative block px-8 py-3 bg-[#1A2238] border border-current">
-            <router-link to="/">Go Home</router-link>
-          </span>
-        </a>
-      </button>
-    </main>
+export function ErrorPage() {
+  return (
+
+    <div className="container-xxl main-container">
+      <div className="container-sm bg-danger border border-dark rounded p-3">
+        <h2>Opa, página não encontrada !!!</h2>
+        <br />
+        <p>
+          Parece que você tentou acessar uma página que não existe em nosso
+          domínio.
+        </p>
+        <hr className="bg-dark" />
+        <Link to="/">
+          <button type="button" className="btn btn-secondary btn-lg">
+            MENU
+          </button>
+        </Link>
+      </div>
+    </div>
   );
 }
 
-export default ErrorPage;
+

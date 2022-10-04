@@ -1,4 +1,4 @@
-function WalletPage() {
+export function CryptoDetails() {
     return ( 
         <div>
             
@@ -6,4 +6,3 @@ function WalletPage() {
      );
 }
 
-export default WalletPage;
