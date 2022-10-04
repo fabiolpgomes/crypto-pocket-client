@@ -2,7 +2,7 @@ import axios from "axios";
 
 //configurando nossas URLs de API
 const apiURLs = {
-  development: "http://localhost:4000",
+  development: "http://localhost:4000/",
   production: "URL Deployed Heroku",
 };
 

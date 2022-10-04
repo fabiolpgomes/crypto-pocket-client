@@ -6,6 +6,7 @@ import { LoginPage } from "./pages/LoginPage";
 import { Profile } from "./pages/Profile/index";
 import { SignUpPage } from "./pages/SignUpPage/index";
 import { CryptoDetails } from "./pages/CryptoDetails/index";
+import { ConfirmEmail } from "./pages/ConfirmEmail";
 import { AuthContextComponent } from "./contexts/authContext";
 
 import { ProtectedRoute } from "./components/ProtecteRoute";
@@ -18,10 +19,8 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route
-            path="/profile"
-            element={<ProtectedRoute component={Profile} />}
-          />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/confirm-email" element={<ConfirmEmail />} />
           <Route path="/dashboard-page" element={<DashboardPage />} />
           <Route path="/wallet" element={<CryptoDetails />} />
           <Route path="*" element={<ErrorPage />} />
