@@ -7,6 +7,7 @@ import { AuthContext } from "../../contexts/authContext";
 export function LoginForm() {
   const startRef = useRef();
   const navigate = useNavigate();
+  const passwordInput = useRef();
 
   useEffect(() => {
     startRef.current.focus();
@@ -35,6 +36,14 @@ export function LoginForm() {
     } catch (error) {
       console.log(error);
       toast.error("Error connecting.");
+    }
+  }
+
+  function showPassword() {
+    if (passwordInput.current.type === "password") {
+      passwordInput.current.type = "text";
+    } else {
+      passwordInput.current.type = "password";
     }
   }
 
@@ -70,6 +79,8 @@ export function LoginForm() {
             required
             onChange={handleChange}
           />
+          <input type="checkbox" onClick={showPassword} />
+          Show Password
         </div>
 
         <button type="submit" className="btn btn-light">
