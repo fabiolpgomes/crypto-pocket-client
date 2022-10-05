@@ -21,7 +21,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/confirm-email" element={<ConfirmEmail />} />
-          <Route path="/dashboard-page" element={<DashboardPage />} />
+          <Route path="/dashboard-page/:idWallet" element={<DashboardPage />} />
           <Route path="/CryptoDetailst" element={<CryptoDetails />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
