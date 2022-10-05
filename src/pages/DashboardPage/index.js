@@ -46,6 +46,15 @@ export function DashboardPage() {
       console.log(error);
     }
   }
+  async function updateCoinsWorth(e) {
+    e.preventDefault();
+    try {
+      await api.get(`/cryptotrade/updatingcrypto/${idWallet}`);
+      setReload(!reload);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div>
@@ -167,6 +176,7 @@ export function DashboardPage() {
           <button type="submit">Purchase coin</button>
         </form>
       )}
+      <button onClick={updateCoinsWorth}>UPDATE ALL COINS NET WORTH</button>
       {!isLoading && (
         <div>
           <h1>Name of the wallet: {walletInfo.specificWallet.name}</h1>
