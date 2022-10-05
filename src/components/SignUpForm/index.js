@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { api } from "../../api/api";
 import profilePlaceholder from "../../assets/profile-placeholder.jpg";
 import { SignUpPage } from "../../pages/SignUpPage";
+
 export function SignUpForm() {
   const startRef = useRef();
   const passwordInput = useRef();
@@ -85,7 +86,7 @@ export function SignUpForm() {
           </label>
           <input
             ref={passwordInput}
-            className="form-control"
+            className="w-full rounded-md border-gray-300 px-5 py-3 placeholder-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs"
             type="password"
             id="password"
             value={userForm.password}
@@ -96,7 +97,11 @@ export function SignUpForm() {
           <input type="checkbox" onClick={showPassword} />
           Show Password
         </div>
-        <button ref={createButton} type="submit" className="btn btn-primary">
+        <button
+          ref={createButton}
+          type="submit"
+          className="inline-flex items-center rounded-md border border-transparent bg-cyan-100 px-4 py-2 text-sm font-medium text-cyan-700 hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
+        >
           CREATE ACCOUNT
         </button>
       </form>
