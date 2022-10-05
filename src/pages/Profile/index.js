@@ -11,6 +11,10 @@ export function Profile() {
   const [reload, setReload] = useState(false);
   const [showUpgrade, setShowUpgrade] = useState(false);
   const [selectPlain, setSelectPlain] = useState({});
+  const [newWalletForm, setShowNewWalletForm] = useState(false);
+  const [appendWallet, setWalletName] = useState({
+    name: "",
+  });
   useEffect(() => {
     console.log("estou no useffect");
     async function fetchUsuario() {
@@ -19,7 +23,7 @@ export function Profile() {
         const response = await api.get("/users/profile");
         setUsuario(response.data);
         getDate(new Date(response.data.user.createdAt));
-        
+
         console.log("dando console.log");
         console.log(response.data);
         setLoading(false);
@@ -31,7 +35,6 @@ export function Profile() {
         setSelectPlain({
           signatureType: response.data.user.signatureType,
         });
-
       } catch (error) {
         console.log(error);
       }
@@ -42,7 +45,6 @@ export function Profile() {
     setSelectPlain({ ...selectPlain, [e.target.name]: e.target.value });
   }
 
-  
   function handleChange(e) {
     setEditForm({ ...editForm, [e.target.name]: e.target.value });
   }
@@ -62,6 +64,19 @@ export function Profile() {
       await api.put("/users/edit", selectPlain);
       setReload(!reload);
       setShowUpgrade(false);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  function nameOfWallet(e) {
+    setWalletName({ ...appendWallet, [e.target.name]: e.target.value });
+  }
+  async function walletAppending(e) {
+    e.preventDefault();
+    try {
+      await api.post("/wallets/createwallet", appendWallet);
+      setReload(!reload);
+      setShowNewWalletForm(false);
     } catch (error) {
       console.log(error);
     }
@@ -86,28 +101,24 @@ export function Profile() {
       )}
       {!isLoading && (
         <div>
-
           <h1>Name : {usuariosInfo.user.name}</h1>
           <h1>User lastname: {usuariosInfo.user.lastName}</h1>
           <h4>User mail: {usuariosInfo.user.email}</h4>
           <h4>SignatureType: {usuariosInfo.user.signatureType}</h4>
           <h2>
-            Usuario criado em:{" "}
-
+            User created in:{" "}
             {date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()}/
             {date.getMonth() + 1 < 10
               ? `0${date.getMonth() + 1}`
               : date.getMonth() + 1}
-
-
-            /{date.getFullYear()} às{"  "}
-
+            /{date.getFullYear()} at{"  "}
             {date.getHours() < 10 ? `0${date.getHours()}` : date.getHours()}:
             {date.getMinutes() < 10
               ? `0${date.getMinutes()}`
               : date.getMinutes()}
           </h2>
-          <h1 style={{
+          <h1
+            style={{
               color:
                 usuariosInfo.user.profit == 0
                   ? "black"
@@ -136,9 +147,24 @@ export function Profile() {
               <button type="submit">Change plan</button>
             </form>
           )}
+
+          <button onClick={() => setShowNewWalletForm(!newWalletForm)}>
+            {newWalletForm ? "Create new wallet" : "Cancel wallet creating"}
+          </button>
+
+          {newWalletForm && (
+            <form onSubmit={walletAppending}>
+              <label>Name of the new wallet</label>
+              <input
+                name="name"
+                value={appendWallet.name}
+                onChange={nameOfWallet}
+              />
+              <button type="submit">Adicionar nova carteira</button>
+            </form>
+          )}
         </div>
       )}
-
       {!isLoading &&
         usuariosInfo.user.wallets.map((carteira) => {
           return (
@@ -147,9 +173,6 @@ export function Profile() {
                 {carteira.name}
 
                 <p>Will put some information about the wallet</p>
-
-         
-
               </div>
             </Link>
           );
