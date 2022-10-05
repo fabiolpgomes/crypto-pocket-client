@@ -49,13 +49,27 @@ export function DashboardPage() {
       )}
       {!isLoading &&
         walletInfo.specificWallet.crypto.map((crypto) => {
+          const date = new Date(crypto.createdAt);
+          const dd = date.getDate();
+          const mm = date.getMonth();
+          const yy = date.getFullYear();
           return (
             <div>
               <h4>Name of the coin: {crypto.cryptocurrencie}</h4>{" "}
-              <h4>Investment made: {crypto.balance}</h4>
+              <h4>Data de aporte: {`0${dd}/${mm + 1}/${yy}`} </h4>
+              <h4>Valor investido na compra: {crypto.balance}</h4>
               <h4>Total of crypto: {crypto.totalCrypto}</h4>
               <h4>Valor de cada crypto: {crypto.priceAPI}</h4>
               <h4>Valor atual: {crypto.priceAPI * crypto.totalCrypto}</h4>
+              <h4>
+                Lucro: {crypto.priceAPI * crypto.totalCrypto - crypto.balance}
+              </h4>
+              <h4>
+                Porcentagem de lucro (%) :{" "}
+                {((crypto.priceAPI * crypto.totalCrypto - crypto.balance) /
+                  crypto.balance) *
+                  100}
+              </h4>
             </div>
           );
         })}
