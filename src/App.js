@@ -10,11 +10,13 @@ import { ConfirmEmail } from "./pages/ConfirmEmail";
 import { AuthContextComponent } from "./contexts/authContext";
 
 import { ProtectedRoute } from "./components/ProtecteRoute";
+import NavBar from "./components/NavBar";
 
 function App() {
   return (
     <>
       <AuthContextComponent>
+      <NavBar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
