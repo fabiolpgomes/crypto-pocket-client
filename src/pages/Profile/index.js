@@ -19,7 +19,7 @@ export function Profile() {
         const response = await api.get("/users/profile");
         setUsuario(response.data);
         getDate(new Date(response.data.user.createdAt));
-        
+
         console.log("dando console.log");
         console.log(response.data);
         setLoading(false);
@@ -31,7 +31,6 @@ export function Profile() {
         setSelectPlain({
           signatureType: response.data.user.signatureType,
         });
-
       } catch (error) {
         console.log(error);
       }
@@ -42,7 +41,6 @@ export function Profile() {
     setSelectPlain({ ...selectPlain, [e.target.name]: e.target.value });
   }
 
-  
   function handleChange(e) {
     setEditForm({ ...editForm, [e.target.name]: e.target.value });
   }
@@ -86,28 +84,24 @@ export function Profile() {
       )}
       {!isLoading && (
         <div>
-
           <h1>Name : {usuariosInfo.user.name}</h1>
-          <h1>User lastname: {usuariosInfo.user.lastName}</h1>
-          <h4>User mail: {usuariosInfo.user.email}</h4>
+          <h1>Last name: {usuariosInfo.user.lastName}</h1>
+          <h4>mail: {usuariosInfo.user.email}</h4>
           <h4>Signature Type: {usuariosInfo.user.signatureType}</h4>
           <h2>
             User created on:{" "}
-
             {date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()}/
             {date.getMonth() + 1 < 10
               ? `0${date.getMonth() + 1}`
               : date.getMonth() + 1}
-
-
             /{date.getFullYear()} às{"  "}
-
             {date.getHours() < 10 ? `0${date.getHours()}` : date.getHours()}:
             {date.getMinutes() < 10
               ? `0${date.getMinutes()}`
               : date.getMinutes()}
           </h2>
-          <h1 style={{
+          <h1
+            style={{
               color:
                 usuariosInfo.user.profit == 0
                   ? "black"
@@ -116,7 +110,7 @@ export function Profile() {
                   : "red",
             }}
           >
-            Lucro: {usuariosInfo.user.profit}
+            Profit: {usuariosInfo.user.profit}
           </h1>
           <button onClick={() => setShowForm(!showForm)}>
             {showForm ? "Cancel edition" : "Edit user data"}
@@ -147,9 +141,6 @@ export function Profile() {
                 {carteira.name}
 
                 <p>Will put some information about the wallet</p>
-
-         
-
               </div>
             </Link>
           );
