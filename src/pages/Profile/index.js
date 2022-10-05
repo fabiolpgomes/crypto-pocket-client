@@ -90,9 +90,9 @@ export function Profile() {
           <h1>Name : {usuariosInfo.user.name}</h1>
           <h1>User lastname: {usuariosInfo.user.lastName}</h1>
           <h4>User mail: {usuariosInfo.user.email}</h4>
-          <h4>SignatureType: {usuariosInfo.user.signatureType}</h4>
+          <h4>Signature Type: {usuariosInfo.user.signatureType}</h4>
           <h2>
-            Usuario criado em:{" "}
+            User created on:{" "}
 
             {date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()}/
             {date.getMonth() + 1 < 10
