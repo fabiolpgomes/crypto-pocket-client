@@ -4,32 +4,26 @@ import { useNavigate } from "react-router-dom";
 import { api } from "../../api/api";
 import profilePlaceholder from "../../assets/profile-placeholder.jpg";
 import { SignUpPage } from "../../pages/SignUpPage";
-
 export function SignUpForm() {
   const startRef = useRef();
   const passwordInput = useRef();
   const createButton = useRef();
   const navigate = useNavigate();
-  const [preview, setPreview] = useState();
-
   useEffect(() => {
     startRef.current.focus();
   }, []);
-
   const [userForm, setUserForm] = useState({
     name: "",
+    lastName: "",
     email: "",
     password: "",
   });
-
   function handleChange(e) {
     setUserForm({ ...userForm, [e.target.name]: e.target.value });
   }
-
   async function handleSubmit(e) {
     e.preventDefault();
     createButton.current.disabled = true;
-
     try {
       await api.post("/users/sign-up", { ...userForm });
       toast.success("Account created.");
@@ -40,7 +34,6 @@ export function SignUpForm() {
       toast.error("Unable to create account, check information.");
     }
   }
-
   function showPassword() {
     if (passwordInput.current.type === "password") {
       passwordInput.current.type = "text";
@@ -48,7 +41,6 @@ export function SignUpForm() {
       passwordInput.current.type = "password";
     }
   }
-
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -67,7 +59,12 @@ export function SignUpForm() {
             onChange={handleChange}
           />
         </div>
-
+        <label>Last name</label>
+        <input
+          name="lastName"
+          value={userForm.lastName}
+          onChange={handleChange}
+        />
         <div className="mb-2">
           <label className="form-label fw-bold" htmlFor="email">
             E-mail
@@ -82,7 +79,6 @@ export function SignUpForm() {
             onChange={handleChange}
           />
         </div>
-
         <div className="mb-4">
           <label className="form-label fw-bold" htmlFor="password">
             Password
@@ -100,7 +96,6 @@ export function SignUpForm() {
           <input type="checkbox" onClick={showPassword} />
           Show Password
         </div>
-
         <button ref={createButton} type="submit" className="btn btn-primary">
           CREATE ACCOUNT
         </button>
