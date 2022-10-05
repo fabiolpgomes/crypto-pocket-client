@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../../api/api";
+
 export function Profile() {
   const [isLoading, setLoading] = useState(true);
   const [usuariosInfo, setUsuario] = useState({});
   const [date, getDate] = useState("");
+
   useEffect(() => {
+    console.log("estou no useffect");
     async function fetchUsuario() {
       try {
         setLoading(true);
@@ -20,6 +23,7 @@ export function Profile() {
     }
     fetchUsuario();
   }, []);
+
   console.log(usuariosInfo);
   return (
     <div>
@@ -47,16 +51,17 @@ export function Profile() {
           </h1>
         </div>
       )}
-      {usuariosInfo.user.wallets.map((carteira) => {
-        return (
-          <Link>
-            <div style={{ backgroundColor: "orange", height: "90px" }}>
-              {carteira.name}
-              <p>Will put some information about the wallet</p>
-            </div>
-          </Link>
-        );
-      })}
+      {!isLoading &&
+        usuariosInfo.user.wallets.map((carteira) => {
+          return (
+            <Link>
+              <div style={{ backgroundColor: "orange", height: "90px" }}>
+                {carteira.name}
+                <p>Will put some information about the wallet</p>
+              </div>
+            </Link>
+          );
+        })}
     </div>
   );
 }
