@@ -11,6 +11,10 @@ export function Profile() {
   const [reload, setReload] = useState(false);
   const [showUpgrade, setShowUpgrade] = useState(false);
   const [selectPlain, setSelectPlain] = useState({});
+  const [newWalletForm, setShowNewWalletForm] = useState(false);
+  const [appendWallet, setWalletName] = useState({
+    name: "",
+  });
   useEffect(() => {
     console.log("estou no useffect");
     async function fetchUsuario() {
@@ -64,6 +68,19 @@ export function Profile() {
       console.log(error);
     }
   }
+  function nameOfWallet(e) {
+    setWalletName({ ...appendWallet, [e.target.name]: e.target.value });
+  }
+  async function walletAppending(e) {
+    e.preventDefault();
+    try {
+      await api.post("/wallets/createwallet", appendWallet);
+      setReload(!reload);
+      setShowNewWalletForm(false);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div>
@@ -89,12 +106,17 @@ export function Profile() {
           <h4>mail: {usuariosInfo.user.email}</h4>
           <h4>Signature Type: {usuariosInfo.user.signatureType}</h4>
           <h2>
-            User created on:{" "}
+
+            User created in:{" "}
+
             {date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()}/
             {date.getMonth() + 1 < 10
               ? `0${date.getMonth() + 1}`
               : date.getMonth() + 1}
-            /{date.getFullYear()} às{"  "}
+
+
+            /{date.getFullYear()} at{"  "}
+
             {date.getHours() < 10 ? `0${date.getHours()}` : date.getHours()}:
             {date.getMinutes() < 10
               ? `0${date.getMinutes()}`
@@ -130,9 +152,24 @@ export function Profile() {
               <button type="submit">Change plan</button>
             </form>
           )}
+
+          <button onClick={() => setShowNewWalletForm(!newWalletForm)}>
+            {newWalletForm ? "Create new wallet" : "Cancel wallet creating"}
+          </button>
+
+          {newWalletForm && (
+            <form onSubmit={walletAppending}>
+              <label>Name of the new wallet</label>
+              <input
+                name="name"
+                value={appendWallet.name}
+                onChange={nameOfWallet}
+              />
+              <button type="submit">Adicionar nova carteira</button>
+            </form>
+          )}
         </div>
       )}
-
       {!isLoading &&
         usuariosInfo.user.wallets.map((carteira) => {
           return (
