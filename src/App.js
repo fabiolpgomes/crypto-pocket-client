@@ -22,7 +22,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/confirm-email" element={<ConfirmEmail />} />
           <Route path="/dashboard-page" element={<DashboardPage />} />
-          <Route path="/wallet" element={<CryptoDetails />} />
+          <Route path="/CryptoDetailst" element={<CryptoDetails />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </AuthContextComponent>
