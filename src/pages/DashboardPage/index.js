@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../../api/api";
 import { Link } from "react-router-dom";
 export function DashboardPage() {
   const { idWallet } = useParams();
+  const navigate = useNavigate();
+  const [pageTo, setPageTo] = useState("");
   const [walletInfo, setWalletInfo] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [diaCriada, setDiacriado] = useState("");
@@ -201,49 +203,199 @@ export function DashboardPage() {
           </h2>
         </div>
       )}
-      {!isLoading &&
-        walletInfo.specificWallet.crypto.map((crypto) => {
-          const date = new Date(crypto.createdAt);
-          let dd;
-          let mm;
-          let yy;
-
-          date.getDate() < 10
-            ? (dd = `0${date.getDate()}`)
-            : (dd = date.getDate());
-          date.getMonth() + 1 < 10
-            ? (mm = `0${date.getMonth()}`)
-            : (mm = date.getMonth());
-          yy = date.getFullYear();
-          return (
-            <Link to={`/CryptoDetailst/${crypto._id}`}>
-              <h4>Name of the coin: {crypto.cryptocurrencie}</h4>{" "}
-              <h4>Data de aporte: {`${dd}/${mm + 1}/${yy}`} </h4>
-              <h4>Valor investido na compra: {crypto.balance}U$D</h4>
-              <h4>
-                Total of crypto: {crypto.totalCrypto} {crypto.cryptocurrencie}
-              </h4>
-              <h4>
-                Valor de cada crypto: {crypto.priceAPI}U$D/
-                {crypto.cryptocurrencie}
-              </h4>
-              <h4>Valor atual: {crypto.priceAPI * crypto.totalCrypto}U$D</h4>
-              <h4>
-                {crypto.priceAPI * crypto.totalCrypto - crypto.balance > 0
-                  ? "Profit "
-                  : "Loss "}{" "}
-                {crypto.priceAPI * crypto.totalCrypto - crypto.balance} U$D
-              </h4>
-              <h4>
-                Porcentagem de lucro (%) :{" "}
-                {((crypto.priceAPI * crypto.totalCrypto - crypto.balance) /
-                  crypto.balance) *
-                  100}
-                %
-              </h4>
-            </Link>
-          );
-        })}
+      <div className="mt-8 flex flex-col">
+        <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+              <table className="min-w-full divide-y divide-gray-300">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th
+                      scope="col"
+                      className="whitespace-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                    >
+                      Crypto name
+                    </th>
+                    <th
+                      scope="col"
+                      className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Crypto value when bought
+                    </th>
+                    <th
+                      scope="col"
+                      className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Amount of crypto
+                    </th>
+                    <th
+                      scope="col"
+                      className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Investment made
+                    </th>
+                    <th
+                      scope="col"
+                      className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Crypto current value
+                    </th>
+                    <th
+                      scope="col"
+                      className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Amount of worth
+                    </th>
+                    <th
+                      scope="col"
+                      className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Profit / Loss
+                    </th>
+                    <th
+                      scope="col"
+                      className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      % of profit
+                    </th>
+                    <th
+                      scope="col"
+                      className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Sell this coin
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200 bg-white">
+                  {!isLoading &&
+                    walletInfo.specificWallet.crypto.map((cryptoData) => {
+                      return (
+                        <tr>
+                          <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-6">
+                            {cryptoData.cryptocurrencie}
+                          </td>
+                          <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
+                            {(
+                              cryptoData.investment / cryptoData.totalCrypto
+                            ).toFixed(2)}{" "}
+                            (U$D/
+                            {cryptoData.cryptocurrencie})
+                          </td>
+                          <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-900">
+                            {cryptoData.totalCrypto.toFixed(5)}{" "}
+                            {cryptoData.cryptocurrencie}
+                          </td>
+                          <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">
+                            {cryptoData.investment.toFixed(2)} U$D
+                          </td>
+                          <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">
+                            {cryptoData.priceAPI.toFixed(2)} (U$D/
+                            {cryptoData.cryptocurrencie})
+                          </td>
+                          <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">
+                            {(
+                              cryptoData.priceAPI * cryptoData.totalCrypto
+                            ).toFixed(2)}{" "}
+                            U$D
+                          </td>
+                          <td
+                            className={
+                              cryptoData.priceAPI * cryptoData.totalCrypto -
+                                cryptoData.investment >=
+                              0
+                                ? "whitespace-nowrap px-2 py-2 text-sm text-green-500"
+                                : "whitespace-nowrap px-2 py-2 text-sm text-red-500"
+                            }
+                          >
+                            {(
+                              cryptoData.priceAPI * cryptoData.totalCrypto -
+                              cryptoData.investment
+                            ).toFixed(2)}{" "}
+                            U$D
+                          </td>
+                          <td
+                            className={
+                              cryptoData.priceAPI * cryptoData.totalCrypto -
+                                cryptoData.investment >=
+                              0
+                                ? "whitespace-nowrap px-2 py-2 text-sm text-green-500"
+                                : "whitespace-nowrap px-2 py-2 text-sm text-red-500"
+                            }
+                          >
+                            {(
+                              (100 *
+                                (cryptoData.priceAPI * cryptoData.totalCrypto -
+                                  cryptoData.investment)) /
+                              cryptoData.investment
+                            ).toFixed(2)}{" "}
+                            %
+                          </td>
+                          <td className="whitespace-nowrap px-2 py-2 text-sm text-green-100">
+                            <Link
+                              to={`/CryptoDetailst/${cryptoData._id}`}
+                              style={{
+                                backgroundColor: "green",
+                                padding: "6px",
+                                borderRadius: "5px",
+                              }}
+                            >
+                              {" "}
+                              Go to crypto
+                            </Link>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
+/* 
+{!isLoading &&
+  walletInfo.specificWallet.crypto.map((crypto) => {
+    const date = new Date(crypto.createdAt);
+    let dd;
+    let mm;
+    let yy;
+
+    date.getDate() < 10
+      ? (dd = `0${date.getDate()}`)
+      : (dd = date.getDate());
+    date.getMonth() + 1 < 10
+      ? (mm = `0${date.getMonth()}`)
+      : (mm = date.getMonth());
+    yy = date.getFullYear();
+    return (
+      <Link to={`/CryptoDetailst/${crypto._id}`}>
+        <h4>Name of the coin: {crypto.cryptocurrencie}</h4>{" "}
+        <h4>Data de aporte: {`${dd}/${mm + 1}/${yy}`} </h4>
+        <h4>Valor investido na compra: {crypto.balance}U$D</h4>
+        <h4>
+          Total of crypto: {crypto.totalCrypto} {crypto.cryptocurrencie}
+        </h4>
+        <h4>
+          Valor de cada crypto: {crypto.priceAPI}U$D/
+          {crypto.cryptocurrencie}
+        </h4>
+        <h4>Valor atual: {crypto.priceAPI * crypto.totalCrypto}U$D</h4>
+        <h4>
+          {crypto.priceAPI * crypto.totalCrypto - crypto.balance > 0
+            ? "Profit "
+            : "Loss "}{" "}
+          {crypto.priceAPI * crypto.totalCrypto - crypto.balance} U$D
+        </h4>
+        <h4>
+          Porcentagem de lucro (%) :{" "}
+          {((crypto.priceAPI * crypto.totalCrypto - crypto.balance) /
+            crypto.balance) *
+            100}
+          %
+        </h4>
+      </Link>
+    );
+  })} */
