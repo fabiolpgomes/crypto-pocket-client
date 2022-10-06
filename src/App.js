@@ -23,14 +23,9 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/confirm-email" element={<ConfirmEmail />} />
-<<<<<<< HEAD
           <Route path="/dashboard-page" element={<DashboardPage />} />
           <Route path="/CryptoDetailst" element={<CryptoDetails />} />
           <Route path="/about" element={<About />} />
-=======
-          <Route path="/dashboard-page/:idWallet" element={<DashboardPage />} />
-          <Route path="/CryptoDetailst/:idCrypto" element={<CryptoDetails />} />
->>>>>>> b1f861f52181cb31d2c47a390e0771a4ed3662eb
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </AuthContextComponent>
