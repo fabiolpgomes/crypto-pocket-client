@@ -27,6 +27,7 @@ export function LoginPage() {
 
       localStorage.setItem("loggedInUser", JSON.stringify(response.data)); //transformando em json
       setLoggedInUser({ ...response.data });
+      
 
       navigate("/profile");
       console.log(response.data); //token + user
