@@ -3,7 +3,7 @@ import axios from "axios";
 //configurando nossas URLs de API
 const apiURLs = {
   development: "http://localhost:4000/",
-  production: "URL Deployed Heroku",
+  production: "https://cryptopocket.netlify.app",
 };
 
 const api = axios.create({ baseURL: apiURLs[process.env.NODE_ENV] });
