@@ -11,7 +11,7 @@ function NavBar() {
               <Link to="/">
 
               <img
-                className="h-14 w-auto"
+                className="h-14 w-auto" style={{borderRadius: "8px"}}
                 src={Logo}
                 alt="logo"
               />
