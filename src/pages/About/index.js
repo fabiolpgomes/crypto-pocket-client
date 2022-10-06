@@ -1,15 +1,18 @@
+import Fabio from "../../assets/fabio.jpg";
+import Bruno from "../../assets/bruno.jpeg";
+
 const people = [
   {
     name: "Fabio Gomes",
     role: "Full Stack Developer",
-    imageUrl: "https://i.imgur.com/3Vr32mus.jpg",
+    imageUrl: Fabio,
     twitterUrl: "https://twitter.com/fabiolpgomes",
     linkedinUrl: "https://www.linkedin.com/in/fabiolpgomes/",
   },
   {
     name: "Bruno Apostolo",
     role: "Full Stack Developer",
-    imageUrl: "https://i.imgur.com/rPWVuKJs.jpg",
+    imageUrl: Bruno,
     twitterUrl: "#",
     linkedinUrl: "https://www.linkedin.com/in/bruno-cesar-apostolo/",
   },
