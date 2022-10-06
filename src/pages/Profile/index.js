@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../../api/api";
+import toast from "react-hot-toast";
 
 export function Profile() {
   const [isLoading, setLoading] = useState(true);
@@ -29,7 +30,6 @@ export function Profile() {
         setEditForm({
           name: response.data.user.name,
           lastName: response.data.user.lastName,
-          email: response.data.user.email,
         });
         setSelectPlain({
           signatureType: response.data.user.signatureType,
@@ -53,6 +53,7 @@ export function Profile() {
       await api.put("/users/edit", editForm);
       setReload(!reload);
       setShowForm(false);
+      toast.success("User updated.");
     } catch (error) {
       console.log(error);
     }
@@ -63,6 +64,7 @@ export function Profile() {
       await api.put("/users/edit", selectPlain);
       setReload(!reload);
       setShowUpgrade(false);
+      toast.success("Plan updated.");
     } catch (error) {
       console.log(error);
     }
@@ -93,8 +95,6 @@ export function Profile() {
             value={editForm.lastName}
             onChange={handleChange}
           />
-          <label>Edit email:</label>
-          <input name="email" value={editForm.email} onChange={handleChange} />
           <button type="submit">Confirm data changing</button>
         </form>
       )}
@@ -102,7 +102,6 @@ export function Profile() {
         <div>
           <h1>Name : {usuariosInfo.user.name}</h1>
           <h1>Last name: {usuariosInfo.user.lastName}</h1>
-          <h4>mail: {usuariosInfo.user.email}</h4>
           <h4>Signature Type: {usuariosInfo.user.signatureType}</h4>
           <h2>
             User created in:{" "}

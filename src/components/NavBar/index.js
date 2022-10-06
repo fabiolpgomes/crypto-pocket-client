@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Logo from "../../assets/Low Resolution Logo - White Background.png"
 
 function NavBar() {
   return (
@@ -6,14 +7,16 @@ function NavBar() {
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Top">
         <div className="flex w-full items-center justify-between border-b border-indigo-500 py-6 lg:border-none">
           <div className="flex items-center">
-            <a href="#">
-              <span className="sr-only">Your Company</span>
+              <span className="sr-only">Crypto Pocket</span>
+              <Link to="/">
+
               <img
-                className="h-10 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=white"
-                alt=""
+                className="h-14 w-auto"
+                src={Logo}
+                alt="logo"
               />
-            </a>
+              </Link>
+            
             <div className="ml-10 hidden space-x-8 lg:block">
               <Link
                 to="/"

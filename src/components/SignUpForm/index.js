@@ -2,8 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../api/api";
-import profilePlaceholder from "../../assets/profile-placeholder.jpg";
-import { SignUpPage } from "../../pages/SignUpPage";
+import { Link } from "react-router-dom";
+import { LockClosedIcon } from "@heroicons/react/20/solid";
 
 export function SignUpForm() {
   const startRef = useRef();
@@ -44,67 +44,116 @@ export function SignUpForm() {
   }
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-2">
-          <label className="form-label fw-bold" htmlFor="name">
-            Name
-          </label>
-          <input
-            ref={startRef}
-            className="form-control"
-            id="name"
-            type="text"
-            value={userForm.name}
-            name="name"
-            required
-            onChange={handleChange}
-          />
+      <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-md space-y-8">
+          <div>
+            <img
+              className="mx-auto h-12 w-auto"
+              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+              alt="Crypto Pocket"
+            />
+            <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+              Sign up your account
+            </h2>
+            <p className="mt-2 text-center text-sm text-gray-600">
+              Welcome, be a member, Create your account!
+            </p>
+          </div>
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+            <input type="hidden" name="remember" defaultValue="true" />
+            <div className="-space-y-px rounded-md shadow-sm"></div>
+            <div>
+              <input
+                ref={startRef}
+                className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                id="name"
+                type="text"
+                value={userForm.name}
+                name="name"
+                placeholder="Name"
+                required
+                onChange={handleChange}
+              />
+            </div>
+
+            <input
+              className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              name="lastName"
+              value={userForm.lastName}
+              placeholder="Last Name"
+              onChange={handleChange}
+            />
+
+            <div>
+              <input
+                name="email"
+                type="email"
+                onChange={handleChange}
+                value={userForm.email}
+                required
+                className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                placeholder="Email address"
+              />
+            </div>
+
+            <div>
+              <input
+                ref={passwordInput}
+                name="password"
+                type="password"
+                id="password"
+                onChange={handleChange}
+                value={userForm.password}
+                required
+                className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                placeholder="Password"
+              />
+            </div>
+
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <label
+                  htmlFor="Show Password"
+                  className="ml-2 block text-sm text-gray-900"
+                >
+                  <input
+                    type="checkbox"
+                    id="password"
+                    name="password"
+                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                    onClick={showPassword}
+                  />
+                  Show password
+                </label>
+              </div>
+
+              <div className="text-sm">
+                <Link
+                  to="/sign-up"
+                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                >
+                  Don't have an account: Create your account!
+                </Link>
+              </div>
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              >
+                <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                  <LockClosedIcon
+                    className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
+                    aria-hidden="true"
+                  />
+                </span>
+                Sign in
+              </button>
+            </div>
+          </form>
         </div>
-        <label>Last name</label>
-        <input
-          name="lastName"
-          value={userForm.lastName}
-          onChange={handleChange}
-        />
-        <div className="mb-2">
-          <label className="form-label fw-bold" htmlFor="email">
-            E-mail
-          </label>
-          <input
-            className="form-control"
-            type="email"
-            id="email"
-            value={userForm.email}
-            name="email"
-            required
-            onChange={handleChange}
-          />
-        </div>
-        <div className="mb-4">
-          <label className="form-label fw-bold" htmlFor="password">
-            Password
-          </label>
-          <input
-            ref={passwordInput}
-            className="w-full rounded-md border-gray-300 px-5 py-3 placeholder-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs"
-            type="password"
-            id="password"
-            value={userForm.password}
-            name="password"
-            required
-            onChange={handleChange}
-          />
-          <input type="checkbox" onClick={showPassword} />
-          Show Password
-        </div>
-        <button
-          ref={createButton}
-          type="submit"
-          className="inline-flex items-center rounded-md border border-transparent bg-cyan-100 px-4 py-2 text-sm font-medium text-cyan-700 hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
-        >
-          CREATE ACCOUNT
-        </button>
-      </form>
+      </div>
     </>
   );
 }
