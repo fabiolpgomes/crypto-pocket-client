@@ -84,23 +84,32 @@ export function Profile() {
   }
 
   return (
-    <div>
+   
+    
+
       {showForm && (
-        <form onSubmit={handleSubmit}>
-          <label>Edit name: </label>
-          <input name="name" value={editForm.name} onChange={handleChange} />
-          <label>Edit last name: </label>
-          <input
-            name="lastName"
-            value={editForm.lastName}
-            onChange={handleChange}
-          />
-          <button type="submit">Confirm data changing</button>
-        </form>
-      )}
+       
+       <form bg-info onSubmit={handleSubmit}>
+        <div className="p-3 mb-2 bg-light text-dark">
+          <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
+            <div className="space-y-6 sm:space-y-5"></div>
+              <div>
+              <label className="form-label" htmlFor="name">Name: </label>
+              <input name="name" value={editForm.name} onChange={handleChange} />
+              <label className="form-label" htmlFor="lastName">Last name: </label>
+              <input name="lastName" value={editForm.lastName} onChange={handleChange} />
+            <button type="submit">Update</button>
+           </div>
+          </div> 
+        </div>        
+       </form>
+      )};
+     
       {!isLoading && (
+        
+        <form bg-info>
         <div>
-          <h1>Name : {usuariosInfo.user.name}</h1>
+          <h1 className="form-label" htmlFor="email">Name : {usuariosInfo.user.name}</h1>
           <h1>Last name: {usuariosInfo.user.lastName}</h1>
           <h4>Signature Type: {usuariosInfo.user.signatureType}</h4>
           <h2>
@@ -160,9 +169,10 @@ export function Profile() {
               />
               <button type="submit">Adicionar nova carteira</button>
             </form>
-          )}
+        )}
         </div>
-      )}
+      
+
       {!isLoading &&
         usuariosInfo.user.wallets.map((carteira) => {
           return (
@@ -175,6 +185,8 @@ export function Profile() {
             </Link>
           );
         })}
+
     </div>
+  
   );
 }
