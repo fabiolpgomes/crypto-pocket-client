@@ -59,7 +59,7 @@ export function LoginPage() {
             Sign in to your account
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-          Control your cryptos with our app!
+          Control your cryptocurrencies with our app!
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -145,26 +145,4 @@ export function LoginPage() {
   );
 }
 
-{
-  /* <div>
-      <form onSubmit={handleSubmit}>
-        <label>Email</label>
-        <input
-          name="email"
-          type="email"
-          onChange={handleChange}
-          value={form.email}
-        />
 
-        <label>Password</label>
-        <input
-          name="password"
-          type="password"
-          onChange={handleChange}
-          value={form.password}
-        />
-
-        <button type="submit">Login</button>
-      </form>
-    </div> */
-}

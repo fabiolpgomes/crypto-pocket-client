@@ -100,7 +100,6 @@ export function HomePage() {
                           <div className="rounded-lg shadow-md">
                             <Link
                               to="/sign-up"
-                              href="#"
                               className="block w-full rounded-lg border border-transparent bg-white px-6 py-3 text-center text-base font-medium text-indigo-600 hover:bg-gray-50"
                               aria-describedby="tier-hobby"
                             >
