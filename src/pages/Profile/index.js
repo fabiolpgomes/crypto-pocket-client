@@ -16,7 +16,6 @@ export function Profile() {
     name: "",
   });
   useEffect(() => {
-    console.log("estou no useffect");
     async function fetchUsuario() {
       try {
         setLoading(true);
@@ -106,17 +105,12 @@ export function Profile() {
           <h4>mail: {usuariosInfo.user.email}</h4>
           <h4>Signature Type: {usuariosInfo.user.signatureType}</h4>
           <h2>
-
             User created in:{" "}
-
             {date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()}/
             {date.getMonth() + 1 < 10
               ? `0${date.getMonth() + 1}`
               : date.getMonth() + 1}
-
-
             /{date.getFullYear()} at{"  "}
-
             {date.getHours() < 10 ? `0${date.getHours()}` : date.getHours()}:
             {date.getMinutes() < 10
               ? `0${date.getMinutes()}`
@@ -154,7 +148,7 @@ export function Profile() {
           )}
 
           <button onClick={() => setShowNewWalletForm(!newWalletForm)}>
-            {newWalletForm ? "Create new wallet" : "Cancel wallet creating"}
+            {!newWalletForm ? "Create new wallet" : "Cancel wallet creating"}
           </button>
 
           {newWalletForm && (
@@ -173,7 +167,7 @@ export function Profile() {
       {!isLoading &&
         usuariosInfo.user.wallets.map((carteira) => {
           return (
-            <Link>
+            <Link to={`/dashboard-page/${carteira._id}`}>
               <div style={{ backgroundColor: "orange", height: "90px" }}>
                 {carteira.name}
 
