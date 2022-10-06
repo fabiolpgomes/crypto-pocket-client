@@ -29,7 +29,6 @@ export function SignUpForm() {
       toast.success("Account created.");
       navigate("/confirm-email");
     } catch (error) {
-      createButton.current.disabled = false;
       console.log(error);
       toast.error("Unable to create account, check information.");
     }
