@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../../api/api";
+import { Link } from "react-router-dom";
 export function DashboardPage() {
   const { idWallet } = useParams();
   const [walletInfo, setWalletInfo] = useState({});
@@ -181,7 +182,7 @@ export function DashboardPage() {
         <div>
           <h1>Name of the wallet: {walletInfo.specificWallet.name}</h1>
           <h2>
-            User created in:{" "}
+            Wallet created at:{" "}
             {diaCriada.getDate() < 10
               ? `0${diaCriada.getDate()}`
               : diaCriada.getDate()}
@@ -203,19 +204,35 @@ export function DashboardPage() {
       {!isLoading &&
         walletInfo.specificWallet.crypto.map((crypto) => {
           const date = new Date(crypto.createdAt);
-          const dd = date.getDate();
-          const mm = date.getMonth();
-          const yy = date.getFullYear();
+          let dd;
+          let mm;
+          let yy;
+
+          date.getDate() < 10
+            ? (dd = `0${date.getDate()}`)
+            : (dd = date.getDate());
+          date.getMonth() + 1 < 10
+            ? (mm = `0${date.getMonth()}`)
+            : (mm = date.getMonth());
+          yy = date.getFullYear();
           return (
-            <div>
+            <Link to={`/CryptoDetailst/${crypto._id}`}>
               <h4>Name of the coin: {crypto.cryptocurrencie}</h4>{" "}
-              <h4>Data de aporte: {`0${dd}/${mm + 1}/${yy}`} </h4>
-              <h4>Valor investido na compra: {crypto.balance}</h4>
-              <h4>Total of crypto: {crypto.totalCrypto}</h4>
-              <h4>Valor de cada crypto: {crypto.priceAPI}</h4>
-              <h4>Valor atual: {crypto.priceAPI * crypto.totalCrypto}</h4>
+              <h4>Data de aporte: {`${dd}/${mm + 1}/${yy}`} </h4>
+              <h4>Valor investido na compra: {crypto.balance}U$D</h4>
               <h4>
-                Lucro: {crypto.priceAPI * crypto.totalCrypto - crypto.balance}
+                Total of crypto: {crypto.totalCrypto} {crypto.cryptocurrencie}
+              </h4>
+              <h4>
+                Valor de cada crypto: {crypto.priceAPI}U$D/
+                {crypto.cryptocurrencie}
+              </h4>
+              <h4>Valor atual: {crypto.priceAPI * crypto.totalCrypto}U$D</h4>
+              <h4>
+                {crypto.priceAPI * crypto.totalCrypto - crypto.balance > 0
+                  ? "Profit "
+                  : "Loss "}{" "}
+                {crypto.priceAPI * crypto.totalCrypto - crypto.balance} U$D
               </h4>
               <h4>
                 Porcentagem de lucro (%) :{" "}
@@ -224,7 +241,7 @@ export function DashboardPage() {
                   100}
                 %
               </h4>
-            </div>
+            </Link>
           );
         })}
     </div>
