@@ -1,20 +1,16 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/authContext";
 
-export function ProtectedRoute(props) {
-  const { component: Component } = props;
-  const navigate = useNavigate();
+import { Navigate } from "react-router-dom";
 
-  const loggedInUser = localStorage.getItem("loggedInUser");
+function ProtectRoute({ Component }) {
+  const { loggedInUser } = useContext(AuthContext);
 
-  const parsedUser = JSON.parse(loggedInUser || '""');
-
-  useEffect(() => {
-    console.log(parsedUser);
-    if (parsedUser.user.role !== "ADMIN") {
-      navigate("/login");
-    }
-  }, []);
-
-  return <Component />;
+  if (loggedInUser) {
+    return <Component />;
+  } else {
+    return <Navigate to="/login" />;
+  }
 }
+
+export default ProtectRoute;

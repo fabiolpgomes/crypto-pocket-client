@@ -222,7 +222,7 @@ export function Profile() {
                       <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                         <button
                           type="button"
-                          className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                          className="mt-3 inline-flex w-full justify-center rounded-md border border-indigo-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                           onClick={() => setShowForm(false)}
                           ref={cancelButtonRef}
                         >
@@ -231,17 +231,17 @@ export function Profile() {
 
                         <button
                           type="button"
-                          className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                          className="mt-3 inline-flex w-full justify-center rounded-md border border-green-300 bg-white px-4 py-2 text-base font-medium text-green-700 shadow-sm hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                           onClick={handleSubmit}
                         >
                           SAVE
                         </button>
                         <button
                           type="button"
-                          className="inline-flex w-full justify-center rounded-md border border-transparent bg-yellow-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
+                          className="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
                           onClick={handleDeleteUser}
                         >
-                          Deactivate User
+                          Desactivate User
                         </button>
                       </div>
                     </Dialog.Panel>
@@ -251,7 +251,7 @@ export function Profile() {
             </Dialog>
           </Transition.Root>
 
-          <form
+         {/*  <form
             onSubmit={handleSubmit}
             className="space-y-8 divide-y divide-gray-200"
           >
@@ -265,10 +265,13 @@ export function Profile() {
             />
 
             <button type="submit">Update</button>
-          </form>
+          </form> */
+          }
+
         </>
       )}
-      {!isLoading && (
+
+      {/* {!isLoading && (
         <div className="space-y-8 divide-y divide-gray-200">
           <h1>Name: {usuariosInfo.user.name}</h1>
           <h1>Last name: {usuariosInfo.user.lastName}</h1>
@@ -298,17 +301,26 @@ export function Profile() {
           >
             Profit: {usuariosInfo.user.profit}
           </h1>
+
           <button
             className=" sm:col-span-2 group relative flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             onClick={() => setShowForm(!showForm)}
           >
-            {showForm ? "Cancel edition" : "Edit user data"}
+            {showForm ? "Cancel edition" : "Edit Profile"}
           </button>
+
           {showUpgrade && (
             <form
               className="space-y-8 divide-y divide-gray-200"
               onSubmit={handleUpgrade}
             >
+              <button
+                className=" sm:col-span-2 group relative flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                type="submit"
+              >
+                Change plan
+              </button>
+
               <label>Choose your new plan:</label>
               <select
                 classeName="rounded"
@@ -320,12 +332,6 @@ export function Profile() {
                 <option value="PLUS">PLUS</option>
                 <option value="PREMIUM">PREMIUM</option>
               </select>
-              <button
-                className=" sm:col-span-2 group relative flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                type="submit"
-              >
-                Change plan
-              </button>
             </form>
           )}
 
@@ -365,7 +371,7 @@ export function Profile() {
             </form>
           )}
         </div>
-      )}
+      )} */}
 
       {!isLoading &&
         usuariosInfo.user.wallets.map((carteira) => {
