@@ -27,7 +27,7 @@ export function CryptoDetails() {
     }
     fetchCryptoDetail();
   }, [reload]);
-  console.log(cryptoData);
+  console.log(lastTimeUpdated);
 
   async function updateCoinWorth(e) {
     e.preventDefault();
@@ -294,7 +294,7 @@ export function CryptoDetails() {
                     : lastTimeUpdated.getMonth() + 1}
                   /{lastTimeUpdated.getFullYear()} at{" "}
                   {lastTimeUpdated.getHours() < 10
-                    ? `0${lastTimeUpdated.getHour()}`
+                    ? `0${lastTimeUpdated.getHours()}`
                     : lastTimeUpdated.getHours()}
                   :
                   {lastTimeUpdated.getMinutes() < 10
