@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const navigation = [
   {
     name: "Facebook",
-    href: "https://www.facebook.com/",
+    href: "https://www.facebook.com/profile.php?id=613701399",
     icon: (props) => (
       <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
         <path
@@ -38,7 +38,7 @@ const navigation = [
   },
   {
     name: "GitHub",
-    href: "#",
+    href: "https://twitter.com/fabiolpgomes",
     icon: (props) => (
       <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
         <path
@@ -82,7 +82,7 @@ export default function Footer() {
         </div>
         <div className="mt-8 md:order-1 md:mt-0">
           <p className="text-center text-base text-gray-400">
-            &copy; 2020 Your Company, Inc. All rights reserved.
+            &copy; 2022 Crypto Pocket Company, Inc. All rights reserved.
           </p>
         </div>
       </div>
