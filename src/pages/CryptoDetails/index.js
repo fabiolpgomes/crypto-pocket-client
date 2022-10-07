@@ -246,7 +246,7 @@ export function CryptoDetails() {
                     : timeBought.getMonth() + 1}
                   /{timeBought.getFullYear()} at{" "}
                   {timeBought.getHours() < 10
-                    ? `0${timeBought.getHour()}`
+                    ? `0${timeBought.getHours()}`
                     : timeBought.getHours()}
                   :
                   {timeBought.getMinutes() < 10
