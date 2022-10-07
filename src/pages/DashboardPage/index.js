@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../../api/api";
 import { Link } from "react-router-dom";
+import { Fragment } from "react";
+import { Listbox, Transition } from "@headlessui/react";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+
 export function DashboardPage() {
   const { idWallet } = useParams();
   const navigate = useNavigate();
@@ -58,16 +62,57 @@ export function DashboardPage() {
       console.log(error);
     }
   }
+  function navigateProfile(e) {
+    e.preventDefault();
+    navigate("/profile");
+  }
 
   return (
-    <div>
-      <button onClick={() => setShowBuyCrypto(!showBuyCrypto)}>
-        {showBuyCrypto ? "Cancel crypto purchase" : "Buy crypto currencie"}
+    <div style={{ marginTop: "10px" }}>
+      <button
+        style={{ marginLeft: "30px", marginTop: "20px" }}
+        className="mt-10 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-blue-700 px-5 py-3 text-base font-medium text-white hover:bg-blue-900 sm:mt-10 sm:w-auto xl:mt-0"
+        onClick={navigateProfile}
+      >
+        Go back to profile
       </button>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <button
+          style={{ margin: "auto" }}
+          className={
+            showBuyCrypto
+              ? "mt-10 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-gray-600 px-5 py-3 text-base font-medium text-white hover:bg-gray-700 sm:mt-10 sm:w-auto xl:mt-0"
+              : "mt-10 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-green-600 px-5 py-3 text-base font-medium text-white hover:bg-green-700 sm:mt-10 sm:w-auto xl:mt-0"
+          }
+          onClick={() => setShowBuyCrypto(!showBuyCrypto)}
+        >
+          {showBuyCrypto ? "Cancel crypto purchase" : "Buy crypto currencie"}
+        </button>
+      </div>
       {showBuyCrypto && (
-        <form onSubmit={tradingCoin}>
-          <label>Select the crypto you wanna buy:</label>
-          <select name="cryptocurrencie" onChange={choseCrypto} required="true">
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+          }}
+        >
+          <label
+            htmlFor="location"
+            className="block text-sm font-xxlarge text-gray-700"
+            style={{ margin: "auto", fontSize: "30px", marginTop: "30px" }}
+          >
+            Which cryptocurrencie do you wanna buy?
+          </label>
+          <select
+            id="location"
+            name="cryptocurrencie"
+            onChange={choseCrypto}
+            style={{ margin: "auto", marginTop: "20px" }}
+            required="true"
+            className="mt-1 block  rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            defaultValue="Canada"
+          >
             <option value="Bitcoin"> Bitcoin</option>
             <option value="Ethereum"> Ethereum</option>
             <option value="Tether"> Tether</option>
@@ -169,40 +214,100 @@ export function DashboardPage() {
             <option value="BinaryX"> BinaryX</option>
             <option value="Celsius"> Celsius</option>
           </select>
-          <input
-            type="number"
-            name="investment"
-            value={purchaseOrder.investment}
-            onChange={choseAmountMoney}
-            required="true"
-          />
-          <button type="submit">Purchase coin</button>
-        </form>
-      )}
-      <button onClick={updateCoinsWorth}>UPDATE ALL COINS NET WORTH</button>
-      {!isLoading && (
-        <div>
-          <h1>Name of the wallet: {walletInfo.specificWallet.name}</h1>
-          <h2>
-            Wallet created at:{" "}
-            {diaCriada.getDate() < 10
-              ? `0${diaCriada.getDate()}`
-              : diaCriada.getDate()}
-            /
-            {diaCriada.getMonth() + 1 < 10
-              ? `0${diaCriada.getMonth() + 1}`
-              : diaCriada.getMonth() + 1}
-            /{diaCriada.getFullYear()} at{"  "}
-            {diaCriada.getHours() < 10
-              ? `0${diaCriada.getHours()}`
-              : diaCriada.getHours()}
-            :
-            {diaCriada.getMinutes() < 10
-              ? `0${diaCriada.getMinutes()}`
-              : diaCriada.getMinutes()}
-          </h2>
+          <label
+            style={{ margin: "auto", fontSize: "30px", marginTop: "30px" }}
+            htmlFor="price"
+            className="block text-sm font-medium text-gray-700"
+          >
+            How much will you invest?
+          </label>
+          <div className="relative mt-1 rounded-md shadow-sm">
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"></div>
+            <input
+              style={{ margin: "auto", marginTop: "20px" }}
+              type="number"
+              name="investment"
+              value={purchaseOrder.investment}
+              onChange={choseAmountMoney}
+              required="true"
+              className="block  rounded-md border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              placeholder="0.00 U$D"
+              aria-describedby="price-currency"
+            />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+              }}
+            >
+              <button
+                style={{
+                  margin: "auto",
+                  marginTop: "20px",
+                }}
+                className="mt-10 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-green-600 px-5 py-3 text-base font-medium text-white hover:bg-green-700 sm:mt-10 sm:w-auto xl:mt-0"
+                onClick={tradingCoin}
+              >
+                Purchase coin
+              </button>
+            </div>
+          </div>
         </div>
       )}
+
+      {!isLoading && (
+        <div
+          style={{
+            backgroundColor: "#ddd6fe",
+            marginTop: "15px",
+            borderRadius: "18px",
+          }}
+          className="mx-auto max-w-2xl py-16 px-4 sm:py-9 sm:px-6 lg:px-8"
+        >
+          <div
+            style={{ display: "flex", flexDirection: "column" }}
+            className="lg:grid lg:grid-cols-2 lg:gap-2"
+          >
+            <h2 className="mx-auto max-w-md text-center text-5xl font-bold tracking-tight text-indigo-900 lg:max-w-xl lg:text-left">
+              Name of the wallet: {walletInfo.specificWallet.name}
+            </h2>
+            <h5 className="mx-auto max-w-md text-center text-2xl font-bold tracking-tight text-indigo-900 lg:max-w-xl lg:text-left">
+              Wallet created in:{" "}
+              {diaCriada.getDate() < 10
+                ? `0${diaCriada.getDate()}`
+                : diaCriada.getDate()}
+              /
+              {diaCriada.getMonth() + 1 < 10
+                ? `0${diaCriada.getMonth() + 1}`
+                : diaCriada.getMonth() + 1}
+              /{diaCriada.getFullYear()} at{"  "}
+              {diaCriada.getHours() < 10
+                ? `0${diaCriada.getHours()}`
+                : diaCriada.getHours()}
+              :
+              {diaCriada.getMinutes() < 10
+                ? `0${diaCriada.getMinutes()}`
+                : diaCriada.getMinutes()}
+            </h5>
+          </div>
+        </div>
+      )}
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "end",
+          marginRight: "30px",
+        }}
+      >
+        <button
+          className="mt-10 inline-flex  items-center justify-center rounded-md border border-transparent bg-cyan-500 px-5 py-3 text-base font-medium text-white hover:bg-cyan-700 sm:mt-10 sm:w-auto xl:mt-0"
+          onClick={updateCoinsWorth}
+        >
+          UPDATE ALL COINS NET WORTH
+        </button>
+      </div>
       <div className="mt-8 flex flex-col">
         <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
