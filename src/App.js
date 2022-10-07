@@ -9,6 +9,7 @@ import { CryptoDetails } from "./pages/CryptoDetails/index";
 import { ConfirmEmail } from "./pages/ConfirmEmail";
 import { About } from "./pages/About";
 import Footer from "./components/Footer";
+import ProtectRoute from "./components/ProtectRoute";
 import { AuthContextComponent } from "./contexts/authContext";
 
 import NavBar from "./components/NavBar";
@@ -23,7 +24,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<ProtectRoute Component={Profile} />} />
           <Route path="/confirm-email" element={<ConfirmEmail />} />
           <Route path="/dashboard-page/:idWallet" element={<DashboardPage />} />
           <Route path="/CryptoDetailst/:idCrypto" element={<CryptoDetails />} />
