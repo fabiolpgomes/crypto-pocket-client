@@ -2,7 +2,11 @@ import axios from "axios";
 
 //configurando nossas URLs de API
 const apiURLs = {
+<<<<<<< HEAD
   development: "http://localhost:4000",
+=======
+  development: "http://localhost:4000/",
+>>>>>>> 529ec0c76413a6729e5b0e7d6faeb4082836c097
   production: "https://cryptopocketbf.herokuapp.com",
 };
 

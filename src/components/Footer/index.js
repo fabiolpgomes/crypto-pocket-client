@@ -82,7 +82,11 @@ export default function Footer() {
         </div>
         <div className="mt-8 md:order-1 md:mt-0">
           <p className="text-center text-base text-gray-400">
+<<<<<<< HEAD
             &copy; 2022 Crypto Pocket Company, Inc. All rights reserved.
+=======
+            &copy; 2022 Crypto Pocket
+>>>>>>> 529ec0c76413a6729e5b0e7d6faeb4082836c097
           </p>
         </div>
       </div>
