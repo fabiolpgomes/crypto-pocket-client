@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../../api/api";
 import { Link } from "react-router-dom";
 import { Fragment } from "react";
-import { Listbox, Transition } from "@headlessui/react";
+import { Listbox, Transition, Dialog } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 export function DashboardPage() {
   const { idWallet } = useParams();
   const navigate = useNavigate();
-  const [pageTo, setPageTo] = useState("");
+  const [editform, showEditForm] = useState(false);
   const [walletInfo, setWalletInfo] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [diaCriada, setDiacriado] = useState("");
@@ -18,7 +18,10 @@ export function DashboardPage() {
     cryptocurrencie: "",
     investment: "",
   });
+  const [walletName, setWalletName] = useState({ name: "" });
+  const cancelButtonRef = useRef(null);
   const [reload, setReload] = useState(false);
+  const [lastTimeUpdated, setLastTimeUpdated] = useState("");
   useEffect(() => {
     async function fetchDaCarteira() {
       try {
@@ -26,6 +29,11 @@ export function DashboardPage() {
         const response = await api.get(`/wallets/getonewallet/${idWallet}`);
         setWalletInfo(response.data);
         setDiacriado(new Date(response.data.specificWallet.createdAt));
+        setShowBuyCrypto(false);
+        setWalletName({
+          [walletName.name]: response.data.specificWallet.name,
+        });
+        setLastTimeUpdated(new Date(response.data.specificWallet.updatedAt));
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -67,15 +75,44 @@ export function DashboardPage() {
     navigate("/profile");
   }
 
+  function handleChangeWalletName(e) {
+    setWalletName({ ...walletName, [e.target.name]: e.target.value });
+  }
+  async function handleSubmitWalletName(e) {
+    e.preventDefault();
+    try {
+      await api.put(`/wallets/editwallet/${idWallet}`, walletName);
+      showEditForm(false);
+      setReload(!reload);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div style={{ marginTop: "10px" }}>
-      <button
-        style={{ marginLeft: "30px", marginTop: "20px" }}
-        className="mt-10 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-blue-700 px-5 py-3 text-base font-medium text-white hover:bg-blue-900 sm:mt-10 sm:w-auto xl:mt-0"
-        onClick={navigateProfile}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          margin: " 0 40px",
+        }}
       >
-        Go back to profile
-      </button>
+        <button
+          style={{ marginLeft: "30px", marginTop: "20px" }}
+          className="mt-10 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-blue-700 px-5 py-3 text-base font-medium text-white hover:bg-blue-900 sm:mt-10 sm:w-auto xl:mt-0"
+          onClick={navigateProfile}
+        >
+          Go back to profile
+        </button>
+        <button
+          style={{ marginLeft: "30px", marginTop: "20px" }}
+          className="mt-10 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-stone-700 px-5 py-3 text-base font-medium text-white hover:bg-blue-900 sm:mt-10 sm:w-auto xl:mt-0"
+          onClick={() => showEditForm(!showBuyCrypto)}
+        >
+          Change wallet name
+        </button>
+      </div>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <button
           style={{ margin: "auto" }}
@@ -255,6 +292,103 @@ export function DashboardPage() {
           </div>
         </div>
       )}
+      {editform && (
+        <>
+          <Transition.Root show={editform} as={Fragment}>
+            <Dialog
+              as="div"
+              className="relative z-10"
+              initialFocus={cancelButtonRef}
+              onClose={showEditForm}
+            >
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+              >
+                <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+              </Transition.Child>
+
+              <div className="fixed inset-0 z-10 overflow-y-auto">
+                <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                  <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                    enterTo="opacity-100 translate-y-0 sm:scale-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+                    leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                  >
+                    <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                      <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                        <div className="sm:flex sm:items-start">
+                          <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                            <Dialog.Title
+                              as="h3"
+                              className="text-lg font-medium leading-6 text-gray-900"
+                            ></Dialog.Title>
+                            <div className="mt-6 ">
+                              <div className="pt-8">
+                                <div>
+                                  <h3 className="text-lg font-medium leading-6 text-gray-900">
+                                    Edit the wallet name
+                                  </h3>
+                                </div>
+                                <div className="mt-6 ">
+                                  <div className="sm:col-span-3">
+                                    <label
+                                      htmlFor="first-name"
+                                      className="block text-sm font-medium text-gray-700"
+                                    >
+                                      New name
+                                    </label>
+                                    <div className="mt-1">
+                                      <input
+                                        type="text"
+                                        name="name"
+                                        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        value={walletName.name}
+                                        onChange={handleChangeWalletName}
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button
+                          type="button"
+                          className="mt-3 inline-flex w-full justify-center rounded-md border border-indigo-300 bg-stone-400 px-4 py-2 text-white font-medium text-white shadow-sm hover:bg-stone-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                          onClick={() => showEditForm(!editform)}
+                          ref={cancelButtonRef}
+                        >
+                          Cancel
+                        </button>
+
+                        <button
+                          type="button"
+                          className="mt-3 inline-flex w-full justify-center rounded-md border bg-green-600 bg-white px-4 py-2 text-white font-medium text-base shadow-sm hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                          onClick={handleSubmitWalletName}
+                        >
+                          Save changes
+                        </button>
+                      </div>
+                    </Dialog.Panel>
+                  </Transition.Child>
+                </div>
+              </div>
+            </Dialog>
+          </Transition.Root>
+        </>
+      )}
 
       {!isLoading && (
         <div
@@ -270,7 +404,7 @@ export function DashboardPage() {
             className="lg:grid lg:grid-cols-2 lg:gap-2"
           >
             <h2 className="mx-auto max-w-md text-center text-5xl font-bold tracking-tight text-indigo-900 lg:max-w-xl lg:text-left">
-              Name of the wallet: {walletInfo.specificWallet.name}
+              Name of the wallet:<p></p> {walletInfo.specificWallet.name}
             </h2>
             <h5 className="mx-auto max-w-md text-center text-2xl font-bold tracking-tight text-indigo-900 lg:max-w-xl lg:text-left">
               Wallet created in:{" "}
@@ -289,6 +423,24 @@ export function DashboardPage() {
               {diaCriada.getMinutes() < 10
                 ? `0${diaCriada.getMinutes()}`
                 : diaCriada.getMinutes()}
+            </h5>
+            <h5 className="mx-auto max-w-md text-center text-2xl font-bold tracking-tight text-indigo-900 lg:max-w-xl lg:text-left">
+              Last time updated in:{" "}
+              {lastTimeUpdated.getDate() < 10
+                ? `0${lastTimeUpdated.getDate()}`
+                : lastTimeUpdated.getDate()}
+              /
+              {lastTimeUpdated.getMonth() + 1 < 10
+                ? `0${lastTimeUpdated.getMonth() + 1}`
+                : lastTimeUpdated.getMonth() + 1}
+              /{lastTimeUpdated.getFullYear()} at{"  "}
+              {lastTimeUpdated.getHours() < 10
+                ? `0${lastTimeUpdated.getHours()}`
+                : lastTimeUpdated.getHours()}
+              :
+              {lastTimeUpdated.getMinutes() < 10
+                ? `0${lastTimeUpdated.getMinutes()}`
+                : lastTimeUpdated.getMinutes()}
             </h5>
           </div>
         </div>
