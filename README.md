@@ -10,7 +10,7 @@ The Crypto Pocket app was created to facilitate end-user cryptocurrency manageme
 This project has been created in the third module at Ironhack São Paulo - Web Development Bootcamp.
 
 
-# Features - MERN stack
+# Features - Full-stack application using the MERN stack (MongoDB, Express, React and Node.JS)
 
 - Create and Update User
 - Create and Update more than one Wallet per User 
