@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 
 export function SignUpForm() {
+  const [showPasswordValidation, setShowPasswordValidation] = useState(false);
   const startRef = useRef();
   const passwordInput = useRef();
   const createButton = useRef();
@@ -21,6 +22,16 @@ export function SignUpForm() {
   });
   function handleChange(e) {
     setUserForm({ ...userForm, [e.target.name]: e.target.value });
+    if (
+      userForm.password === "" ||
+      userForm.password.match(
+        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/
+      )
+    ) {
+      setShowPasswordValidation(false);
+    } else {
+      setShowPasswordValidation(true);
+    }
   }
   async function handleSubmit(e) {
     e.preventDefault();
@@ -125,14 +136,13 @@ export function SignUpForm() {
                 </label>
               </div>
 
-              <div className="text-sm">
-                <Link
-                  to="/sign-up"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
-                >
-                  Don't have an account: Create your account!
-                </Link>
-              </div>
+              {showPasswordValidation && (
+                <div className="text-sm">
+                  <p className="font-medium text-red-600 hover:text-red-500">
+                    Invalid password!
+                  </p>
+                </div>
+              )}
             </div>
 
             <div>
