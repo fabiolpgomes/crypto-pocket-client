@@ -11,7 +11,7 @@ import { About } from "./pages/About";
 import Footer from "./components/Footer";
 import ProtectRoute from "./components/ProtecteRoute";
 import { AuthContextComponent } from "./contexts/authContext";
-
+import { EmailConfirmed } from "./pages/EmailConfirmed";
 import NavBar from "./components/NavBar";
 
 function App() {
@@ -32,7 +32,10 @@ function App() {
           <Route path="/dashboard-page/:idWallet" element={<DashboardPage />} />
           <Route path="/CryptoDetailst/:idCrypto" element={<CryptoDetails />} />
           <Route path="/about" element={<About />} />
-
+          <Route
+            path="/users/activate-account/:id"
+            element={<EmailConfirmed />}
+          />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />
