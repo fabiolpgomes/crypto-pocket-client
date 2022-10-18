@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../api/api";
 import { Link } from "react-router-dom";
@@ -37,8 +37,8 @@ export function SignUpForm() {
     e.preventDefault();
     try {
       await api.post("/users/sign-up", { ...userForm });
-      toast.success("Account created.");
       navigate("/confirm-email");
+      toast.success("Account created.");
     } catch (error) {
       console.log(error);
       toast.error("Unable to create account, check information.");
@@ -54,6 +54,7 @@ export function SignUpForm() {
   return (
     <>
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <Toaster position="top-center" reverseOrder={false} />
         <div className="w-full max-w-md space-y-8">
           <div>
             <img

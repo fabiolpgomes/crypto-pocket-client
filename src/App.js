@@ -12,7 +12,7 @@ import Footer from "./components/Footer";
 import ProtectRoute from "./components/ProtecteRoute";
 import { AuthContextComponent } from "./contexts/authContext";
 import NavBar from "./components/NavBar";
-
+import toast, { Toaster } from "react-hot-toast";
 function App() {
   return (
     <>

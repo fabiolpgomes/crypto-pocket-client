@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Fragment } from "react";
 import { Listbox, Transition, Dialog } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import toast, { Toaster } from "react-hot-toast";
 
 export function DashboardPage() {
   const { idWallet } = useParams();
@@ -91,6 +92,7 @@ export function DashboardPage() {
 
   return (
     <div style={{ marginTop: "10px" }}>
+      <Toaster position="top-center" reverseOrder={false} />
       <div
         style={{
           display: "flex",
@@ -612,47 +614,3 @@ export function DashboardPage() {
     </div>
   );
 }
-/* 
-{!isLoading &&
-  walletInfo.specificWallet.crypto.map((crypto) => {
-    const date = new Date(crypto.createdAt);
-    let dd;
-    let mm;
-    let yy;
-
-    date.getDate() < 10
-      ? (dd = `0${date.getDate()}`)
-      : (dd = date.getDate());
-    date.getMonth() + 1 < 10
-      ? (mm = `0${date.getMonth()}`)
-      : (mm = date.getMonth());
-    yy = date.getFullYear();
-    return (
-      <Link to={`/CryptoDetailst/${crypto._id}`}>
-        <h4>Name of the coin: {crypto.cryptocurrencie}</h4>{" "}
-        <h4>Data de aporte: {`${dd}/${mm + 1}/${yy}`} </h4>
-        <h4>Valor investido na compra: {crypto.balance}U$D</h4>
-        <h4>
-          Total of crypto: {crypto.totalCrypto} {crypto.cryptocurrencie}
-        </h4>
-        <h4>
-          Valor de cada crypto: {crypto.priceAPI}U$D/
-          {crypto.cryptocurrencie}
-        </h4>
-        <h4>Valor atual: {crypto.priceAPI * crypto.totalCrypto}U$D</h4>
-        <h4>
-          {crypto.priceAPI * crypto.totalCrypto - crypto.balance > 0
-            ? "Profit "
-            : "Loss "}{" "}
-          {crypto.priceAPI * crypto.totalCrypto - crypto.balance} U$D
-        </h4>
-        <h4>
-          Porcentagem de lucro (%) :{" "}
-          {((crypto.priceAPI * crypto.totalCrypto - crypto.balance) /
-            crypto.balance) *
-            100}
-          %
-        </h4>
-      </Link>
-    );
-  })} */
