@@ -51,6 +51,7 @@ export function About() {
                   <div className="space-y-4" style={{ margin: "10px" }}>
                     <div className="aspect-w-3 aspect-h-2">
                       <img
+                        style={{ borderRadius: "50%" }}
                         className="rounded-lg object-cover shadow-lg"
                         src={person.imageUrl}
                         alt=""
