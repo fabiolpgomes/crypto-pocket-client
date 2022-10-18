@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../../api/api";
+import toast, { Toaster } from "react-hot-toast";
 import { RadioGroup } from "@headlessui/react";
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
@@ -81,6 +82,16 @@ export function Profile() {
   }
   async function walletAppending(e) {
     e.preventDefault();
+    if (
+      (usuariosInfo.user.wallets.length > 0 &&
+        usuariosInfo.user.signatureType === "BASIC") ||
+      (usuariosInfo.user.wallets.length > 1 &&
+        usuariosInfo.user.signatureType === "PLUS")
+    ) {
+      toast.error("You can't have more wallets. Please upgrade your plan.");
+    } else {
+      toast.success("You created a new wallet");
+    }
     try {
       await api.post("/wallets/createwallet", appendWallet);
       setReload(!reload);
@@ -106,6 +117,7 @@ export function Profile() {
   }
   return (
     <div class="ml-5">
+      <Toaster position="top-center" reverseOrder={false} />
       {!isLoading && (
         <div
           style={{
@@ -564,13 +576,4 @@ export function Profile() {
       )}
     </div>
   );
-}
-
-{
-  /* */
-  /*  <Link to={`/dashboard-page/${carteira._id}`}>
-              <div className="group relative -bottom-5 flex justify-center rounded-md border border-transparent bg-indigo-300 py-2 px-6 text-md font-medium text-white hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:ring-offset-2">
-                {carteira.name}
-              </div>
-            </Link> */
 }
