@@ -32,6 +32,7 @@ function App() {
           <Route path="/dashboard-page/:idWallet" element={<DashboardPage />} />
           <Route path="/CryptoDetailst/:idCrypto" element={<CryptoDetails />} />
           <Route path="/about" element={<About />} />
+
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />
