@@ -562,7 +562,8 @@ export function Profile() {
                     <div>
                       <Link
                         to={`/dashboard-page/${wallet._id}`}
-                        className="inline-flex items-center rounded-full border border-gray-300 bg-green-500 px-2.5 py-0.5 text-sm font-medium leading-5 text-gray-700 shadow-sm hover:bg-green-200"
+                        style={{ borderRadius: "4px" }}
+                        className="inline-flex items-center   border-gray-400 bg-green-600 px-2.5 py-0.5 text-sm font-medium leading-5 text-slate-50 shadow-sm hover:bg-green-700"
                       >
                         Browse this wallet
                       </Link>
