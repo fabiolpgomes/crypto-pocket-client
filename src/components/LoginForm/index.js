@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useContext } from "react";
-import toast. {Toaster} from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../api/api";
 import { AuthContext } from "../../contexts/authContext";
@@ -49,9 +49,7 @@ export function LoginForm() {
 
   return (
     <>
-      <Toaster
-      position="top-center"
-      reverseOrder={false}/>
+      <Toaster position="top-center" reverseOrder={false} />
       <form bg-info onSubmit={handleSubmit}>
         <div className="p-3 mb-2 bg-light text-dark">
           <label className="form-label" htmlFor="email">

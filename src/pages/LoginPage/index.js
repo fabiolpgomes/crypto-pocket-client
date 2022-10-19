@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { api } from "../../api/api";
 import { AuthContext } from "../../contexts/authContext";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
+import Logo from "../../assets/High Resolution Logo.png";
 
 export function LoginPage() {
   const passwordInput = useState();
@@ -27,7 +28,6 @@ export function LoginPage() {
 
       localStorage.setItem("loggedInUser", JSON.stringify(response.data)); //transformando em json
       setLoggedInUser({ ...response.data });
-      
 
       navigate("/profile");
       console.log(response.data); //token + user
@@ -52,15 +52,16 @@ export function LoginPage() {
       <div className="w-full max-w-md space-y-8">
         <div>
           <img
+            style={{ borderRadius: "20px" }}
             className="mx-auto h-12 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            src={Logo}
             alt="Your Company"
           />
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
             Sign in to your account
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-          Control your cryptocurrencies with our app!
+            Control your cryptocurrencies with our app!
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -100,7 +101,6 @@ export function LoginPage() {
 
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              
               <label
                 htmlFor="remember-me"
                 className="ml-2 block text-sm text-gray-900"
@@ -112,7 +112,7 @@ export function LoginPage() {
                   className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                   onClick={showPassword}
                 />
-                 Show password
+                Show password
               </label>
             </div>
 
@@ -121,7 +121,7 @@ export function LoginPage() {
                 to="/sign-up"
                 className="font-medium text-indigo-600 hover:text-indigo-500"
               >
-                Don't have an account: Create your account!
+                Don't have an account? Create your account!
               </Link>
             </div>
           </div>
@@ -145,5 +145,3 @@ export function LoginPage() {
     </div>
   );
 }
-
-
