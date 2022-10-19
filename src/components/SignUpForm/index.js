@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { api } from "../../api/api";
 import { Link } from "react-router-dom";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
-
+import Logo from "../../assets/High Resolution Logo.png";
 export function SignUpForm() {
   const [showPasswordValidation, setShowPasswordValidation] = useState(false);
   const startRef = useRef();
@@ -58,8 +58,9 @@ export function SignUpForm() {
         <div className="w-full max-w-md space-y-8">
           <div>
             <img
+              style={{ borderRadius: "20px" }}
               className="mx-auto h-12 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+              src={Logo}
               alt="Crypto Pocket"
             />
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
@@ -107,6 +108,11 @@ export function SignUpForm() {
             </div>
 
             <div>
+              <p>
+                Password must contain at least one digit, one lowercase letter,
+                one capital letter, one special character and must contain at
+                least 8 of the characters mentioned
+              </p>
               <input
                 ref={passwordInput}
                 name="password"
