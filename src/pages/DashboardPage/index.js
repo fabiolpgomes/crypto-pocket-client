@@ -560,9 +560,13 @@ export function DashboardPage() {
                           <td
                             className={
                               cryptoData.priceAPI * cryptoData.totalCrypto -
-                                cryptoData.investment >=
+                                cryptoData.investment >
                               0
                                 ? "whitespace-nowrap px-2 py-2 text-sm text-green-500"
+                                : cryptoData.priceAPI * cryptoData.totalCrypto -
+                                    cryptoData.investment ==
+                                  0
+                                ? "whitespace-nowrap px-2 py-2 text-sm text-gray-500"
                                 : "whitespace-nowrap px-2 py-2 text-sm text-red-500"
                             }
                           >
@@ -575,9 +579,13 @@ export function DashboardPage() {
                           <td
                             className={
                               cryptoData.priceAPI * cryptoData.totalCrypto -
-                                cryptoData.investment >=
+                                cryptoData.investment >
                               0
                                 ? "whitespace-nowrap px-2 py-2 text-sm text-green-500"
+                                : cryptoData.priceAPI * cryptoData.totalCrypto -
+                                    cryptoData.investment ==
+                                  0
+                                ? "whitespace-nowrap px-2 py-2 text-sm text-gray-500"
                                 : "whitespace-nowrap px-2 py-2 text-sm text-red-500"
                             }
                           >
