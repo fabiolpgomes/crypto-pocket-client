@@ -34,19 +34,19 @@ Back-end project for inventory control app (**mobile** and **web**)!
 
 # Presentation
 
-[Click here](https://www.canva.com/design/DAE6l1qSFZI/xZhufOFHCylg5A8tYSolLw/view?utm_content=DAE6l1qSFZI&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton)
+[Click here](https://docs.google.com/presentation/d/1QqvAl7l7TF04w819LFqdFVEG58O4U1lQOSXtHbENAEQ/edit?usp=sharing)
+
+## Built With
+
+<code><img height="30" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/html/html.png"></code><code><img height="30" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/css/css.png"></code><code><img height="30" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/javascript/javascript.png"></code><code><img height="30" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/visual-studio-code/visual-studio-code.png"></code><code><img height="30" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/git/git.png"><img height="30" src="https://avatars.githubusercontent.com/u/6412038?s=280&v=4"> <img height="30" src="https://i.imgur.com/TMcPy5m.jpg"></code>
 
 ## Install
 To run the application on your localhost, clone the repo and then execute the commands below:
 
 - <code>$ git clone https://github.com/fabiolpgomes/crypto-pocket-client</code>
-- <code>$ cd kols-client</code>
+- <code>$ cd crypto-pocket-clien</code>
 - <code>$ npm install</code>
 - <code>$ npm run dev </code>
-
-
-
-
 
 
 
