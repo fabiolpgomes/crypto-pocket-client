@@ -44,7 +44,7 @@ Back-end project for inventory control app (**mobile** and **web**)!
 To run the application on your localhost, clone the repo and then execute the commands below:
 
 - <code>$ git clone https://github.com/fabiolpgomes/crypto-pocket-client</code>
-- <code>$ cd crypto-pocket-clien</code>
+- <code>$ cd crypto-pocket-client</code>
 - <code>$ npm install</code>
 - <code>$ npm run dev </code>
 
