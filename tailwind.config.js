@@ -1,7 +1,5 @@
-module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
-  theme: {
-    extend: {},
-  },
-  plugins: [require("@tailwindcss/forms"), require("@headlessui/react")],
+export const content = ["./src/**/*.{js,jsx,ts,tsx}"];
+export const theme = {
+  extend: {},
 };
+export const plugins = [require("@tailwindcss/forms"), require("@headlessui/react")];
